@@ -1,0 +1,142 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "angular-tests": {
+      "root": "apps/angular-tests/",
+      "sourceRoot": "apps/angular-tests/src",
+      "projectType": "application",
+      "prefix": "angular-tests",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "sass"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/angular-tests",
+            "index": "apps/angular-tests/src/index.html",
+            "main": "apps/angular-tests/src/main.ts",
+            "polyfills": "apps/angular-tests/src/polyfills.ts",
+            "tsConfig": "apps/angular-tests/tsconfig.app.json",
+            "assets": [
+              "apps/angular-tests/src/favicon.ico",
+              "apps/angular-tests/src/assets"
+            ],
+            "styles": ["apps/angular-tests/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/angular-tests/src/environments/environment.ts",
+                  "with": "apps/angular-tests/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "angular-tests:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-tests:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-tests:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/angular-tests/tsconfig.app.json",
+              "apps/angular-tests/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/angular-tests/jest.config.js",
+            "tsConfig": "apps/angular-tests/tsconfig.spec.json",
+            "setupFile": "apps/angular-tests/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "angular-tests-e2e": {
+      "root": "apps/angular-tests-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/angular-tests-e2e/cypress.json",
+            "tsConfig": "apps/angular-tests-e2e/tsconfig.e2e.json",
+            "devServerTarget": "angular-tests:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-tests:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/angular-tests-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {
+    "@nrwl/schematics:application": {
+      "style": "sass",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:library": {
+      "style": "sass"
+    }
+  },
+  "defaultProject": "angular-tests"
+}
