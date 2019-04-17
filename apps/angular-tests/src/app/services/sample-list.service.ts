@@ -11,6 +11,6 @@ export class SampleListService {
   constructor(private http: HttpClient) { }
 
   getSampleList(): Observable<SampleListModel[]> {
-    return this.http.get<SampleListModel[]>("https://my-json-server.typicode.com/karql/angular-tests");
+    return this.http.get<SampleListModel[]>("https://my-json-server.typicode.com/karql/angular-tests/list");
   }
 }
