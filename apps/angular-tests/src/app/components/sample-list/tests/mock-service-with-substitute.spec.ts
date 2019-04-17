@@ -5,7 +5,7 @@ import { SampleListService } from '../../../services/sample-list.service';
 import { Subject, of } from 'rxjs';
 import { SampleListModel } from '../../../models/sample-list.model';
 
-import { ConfigureFn, configureTests } from "@angular-tests/testing"
+import { ConfigureFn, configureTests, NgSubstitute } from '@angular-tests/testing';
 
 describe('SampleListComponent', () => {
   let component: SampleListComponent;
@@ -16,10 +16,12 @@ describe('SampleListComponent', () => {
       { id: "2", title: "Title 2" }
   ]
 
-  // no typings at all
-  const mockSampleListService = {
-    getSampleList: jest.fn(() => of(list))
-  };
+  // strong typings
+  // works with refactor
+  // nice api
+  // does not call class constructor
+  const mockSampleListService = NgSubstitute.for<SampleListService>();
+  mockSampleListService.getSampleList().returns(of(list));
 
   beforeEach(async(() => {
     const configure: ConfigureFn = testBed => {

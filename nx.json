@@ -13,6 +13,9 @@
     },
     "angular-tests-e2e": {
       "tags": []
+    },
+    "testing": {
+      "tags": []
     }
   }
 }
