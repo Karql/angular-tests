@@ -5,6 +5,8 @@ import { SampleListService } from '../../../services/sample-list.service';
 import { Subject } from 'rxjs';
 import { SampleListModel } from '../../../models/sample-list.model';
 
+import * as sinon from 'sinon';
+
 describe('SampleListComponent', () => {
   let component: SampleListComponent;
   let fixture: ComponentFixture<SampleListComponent>;
@@ -15,9 +17,10 @@ describe('SampleListComponent', () => {
   ]
 
   const mockSampleListSubject = new Subject<SampleListModel[]>();
-  const mockSampleListService = {
-    getSampleList: jest.fn(() => mockSampleListSubject)
-  };
+  const mockSampleListService = new SampleListService(null);
+
+  // method typing by keyof when name will be changed at least this line return compilation error
+  sinon.stub(mockSampleListService, "getSampleList").returns(mockSampleListSubject)
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

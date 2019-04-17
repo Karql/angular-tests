@@ -1,5 +1,5 @@
 <h3>Sample list...</h3>
 
 <ul>
-  <li *ngFor="let item of list">{{item.title}}</li>
+  <li *ngFor="let item of list$ | async">{{item.title}}</li>
 </ul>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SampleListModel } from '../../models/sample-list.model';
 import { SampleListService } from '../../services/sample-list.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'angular-tests-sample-list',
@@ -8,11 +9,11 @@ import { SampleListService } from '../../services/sample-list.service';
   styleUrls: ['./sample-list.component.css']
 })
 export class SampleListComponent implements OnInit {
-  list: SampleListModel[];
+  list$: Observable<SampleListModel[]>;
 
   constructor(private sampleListService: SampleListService) { }
 
   ngOnInit() {
-    this.sampleListService.getSampleList().subscribe(list => this.list = list);
+    this.list$ = this.sampleListService.getSampleList();
   }
 }
