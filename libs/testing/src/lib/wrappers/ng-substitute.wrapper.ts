@@ -1,6 +1,8 @@
 import Substitute, { SubstituteOf } from '@fluffy-spoon/substitute';
 import { ObjectSubstitute, OmitProxyMethods, DisabledSubstituteObject } from '@fluffy-spoon/substitute/dist/src/Transformations';
 
+export { Arg } from '@fluffy-spoon/substitute';
+
 export class NgSubstitute {
     static for<T>(): SubstituteOf<T> {
         let substitute = Substitute.for<T>();

@@ -1,2 +1,2 @@
-export * from './helpers/config.helpers';
-export * from './wrappers/ng-substitute.wrapper';
+export * from './lib/helpers/config.helpers';
+export * from './lib/wrappers/ng-substitute.wrapper';
