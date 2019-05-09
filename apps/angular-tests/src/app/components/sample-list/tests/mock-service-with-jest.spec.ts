@@ -23,7 +23,7 @@ describe('SampleListComponent', () => {
 
   beforeEach(async(() => {
     const configure: ConfigureFn = testBed => {
-      TestBed.configureTestingModule({
+      testBed.configureTestingModule({
         declarations: [ SampleListComponent ],
         providers: [
             { provide: SampleListService, useValue: mockSampleListService }
