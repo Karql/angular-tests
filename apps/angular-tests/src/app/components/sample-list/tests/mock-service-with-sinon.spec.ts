@@ -17,10 +17,10 @@ describe('SampleListComponent', () => {
       { id: "2", title: "Title 2" }
   ]
 
-  // typing by keyof of object
-  // partialy works with refactor (when method name will change returns compilation error)
-  // needed to pass undefined attributes to constructor
-  // could execute not wanted logic (from constructor)
+  // +/- typing by keyof of object
+  // +/- partialy works with refactor (when method name will change returns compilation error)
+  // - needed to pass undefined attributes to constructor
+  // - could execute not wanted logic (from constructor)
   const mockSampleListService = new SampleListService(undefined);
   sinon.stub(mockSampleListService, "getSampleList").returns(of(list))
 

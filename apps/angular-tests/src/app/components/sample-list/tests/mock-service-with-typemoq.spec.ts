@@ -5,7 +5,8 @@ import { SampleListService } from '../../../services/sample-list.service';
 import { Subject, of } from 'rxjs';
 import { SampleListModel } from '../../../models/sample-list.model';
 
-import { ConfigureFn, configureTests, NgSubstitute } from '@angular-tests/testing';
+import { ConfigureFn, configureTests } from '@angular-tests/testing';
+import * as TypeMoq from "typemoq";
 
 describe('SampleListComponent', () => {
   let component: SampleListComponent;
@@ -18,21 +19,20 @@ describe('SampleListComponent', () => {
 
   // + strong typings
   // + works with refactor
-  // + nice api
   // + does not call class constructor
-  // - try to find which metods are not mocked yet
-  const mockSampleListService = NgSubstitute.for<SampleListService>();
-  mockSampleListService.getSampleList().returns(of(list));
+  const mockSampleListService = TypeMoq.Mock.ofType(SampleListService);
+  mockSampleListService.setup(x => x.getSampleList()).returns(()=> of(list));
+  // doSomething is not mocked
 
   beforeEach(async(() => {
     const configure: ConfigureFn = testBed => {
       testBed.configureTestingModule({
         declarations: [ SampleListComponent ],
         providers: [
-            { provide: SampleListService, useValue: mockSampleListService }
+            { provide: SampleListService, useValue: mockSampleListService.object }
         ]
       })
-    }
+    }    
 
     configureTests(configure).then(testBed => {
       fixture = testBed.createComponent(SampleListComponent);
@@ -44,7 +44,7 @@ describe('SampleListComponent', () => {
   it('should display a list of all titles', () => {
     component.ngOnInit();
     fixture.detectChanges();
-
+   
     const el = fixture.nativeElement;
     expect(el.textContent).toContain('Title 1');
     expect(el.textContent).toContain('Title 2');

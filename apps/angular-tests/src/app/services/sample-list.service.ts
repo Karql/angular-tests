@@ -13,4 +13,8 @@ export class SampleListService {
   getSampleList(): Observable<SampleListModel[]> {
     return this.http.get<SampleListModel[]>("https://my-json-server.typicode.com/karql/angular-tests/list");
   }
+
+  getNotImplemented(): string {
+    throw new Error('not implemented');
+  }
 }

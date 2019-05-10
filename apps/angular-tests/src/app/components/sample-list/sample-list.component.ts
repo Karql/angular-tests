@@ -10,10 +10,15 @@ import { Observable } from 'rxjs';
 })
 export class SampleListComponent implements OnInit {
   list$: Observable<SampleListModel[]>;
-
+  
   constructor(private sampleListService: SampleListService) { }
 
   ngOnInit() {
     this.list$ = this.sampleListService.getSampleList();
+  }
+
+  doSomething() {
+    console.log('this.sampleListService.getNotImplemented:', this.sampleListService.getNotImplemented);
+    console.log('this.sampleListService.getNotImplemented():', this.sampleListService.getNotImplemented());
   }
 }
